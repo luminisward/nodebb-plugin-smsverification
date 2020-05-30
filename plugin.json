@@ -1,0 +1,42 @@
+{
+  "id": "nodebb-plugin-smsverification",
+  "url": "https://github.com/luminisward/nodebb-plugin-smsverification",
+  "library": "./library.js",
+  "hooks": [
+    {
+      "hook": "static:app.load",
+      "method": "init"
+    },
+    {
+      "hook": "filter:admin.header.build",
+      "method": "addAdminNavigation"
+    },
+    {
+      "hook": "filter:register.build",
+      "method": "addField"
+    },
+    {
+      "hook": "filter:register.check",
+      "method": "checkField"
+    },
+    {
+      "hook": "filter:user.create",
+      "method": "user.addFieldOnCreate"
+    },
+    {
+      "hook": "filter:user.whitelistFields",
+      "method": "user.addWhiteListField"
+    },
+    {
+      "hook": "filter:account/edit.build",
+      "method": "user.addMobileEditButton"
+    }
+  ],
+  "staticDirs": {
+    "static": "./static"
+  },
+  "less": ["static/style.less"],
+  "scripts": ["static/lib/main.js"],
+  "acpScripts": ["static/lib/admin.js"],
+  "templates": "static/templates"
+}
