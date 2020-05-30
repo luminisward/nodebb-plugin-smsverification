@@ -33,7 +33,6 @@
     "url": "https://github.com/luminisward/nodebb-plugin-smsverification"
   },
   "dependencies": {
-    "nodebb-plugin-add-registration-fields": "^0.1.19",
     "qcloudsms_js": "^0.1.1"
   },
   "devDependencies": {
