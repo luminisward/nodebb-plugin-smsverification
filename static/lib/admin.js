@@ -36,6 +36,7 @@ define('admin/plugins/smsverificationtest', ['settings'], () => {
     };
     try {
       await socket.emit('plugins.smsverification.sendTestSms', data);
+      app.alertSuccess('发送成功');
     } catch (error) {
       app.alertError(error.message);
     }
