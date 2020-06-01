@@ -2,10 +2,12 @@
 
 $(document).ready(() => {
   $(window).on('action:ajaxify.end', (_, { url }) => {
+    const isEditMobilePage = /^user\/.*\/edit\/mobile/.test(url);
+
     // 注册
-    if (url === 'register' || url === `user/${app.user.userslug}/edit/mobile`) {
+    if (url === 'register' || isEditMobilePage) {
       let originMobile; // 修改时，比较原号码
-      if (url === `user/${app.user.userslug}/edit/mobile`) {
+      if (isEditMobilePage) {
         originMobile = $('#mobile').val();
       }
 
@@ -60,8 +62,8 @@ $(document).ready(() => {
       });
     }
 
-    // 编辑
-    if (url === `user/${app.user.userslug}/edit/mobile`) {
+    // 修改号码提交
+    if (isEditMobilePage) {
       const submitEl = $('#submitBtn');
       submitEl.click(async (event) => {
         event.preventDefault();
