@@ -16,7 +16,8 @@ const makeSmsCode = (length) => {
 
 const methods = {
   async sendCode(socket, data) {
-    const expireSeconds = await meta.settings.getOne('smsverification', 'expireSeconds') || 60;
+    const expireSetting = await meta.settings.getOne('smsverification', 'expireSeconds');
+    const expireSeconds = parseInt(expireSetting, 10) || 60;
     const { mobile } = data;
 
     // 检测该号码是否已发
@@ -39,7 +40,15 @@ const methods = {
     throw new Error(resData.errmsg);
   },
   async editMobile(socket, data) {
+    const operatorUid = socket.uid;
     const { uid, mobile, smscode } = data;
+
+    if (operatorUid !== uid) {
+      const isAdmin = await user.isAdministrator(socket.uid);
+      if (!isAdmin) {
+        throw new Error('非法操作');
+      }
+    }
 
     if (!mobile || !smscode) {
       throw new Error('请填写手机号和验证码');

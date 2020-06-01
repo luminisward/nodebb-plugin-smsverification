@@ -69,7 +69,7 @@ $(document).ready(() => {
         event.preventDefault();
 
         const userData = {
-          uid: $('#inputUID').val(),
+          uid: parseInt($('#inputUID').val(), 10),
           mobile: $('#mobile').val(),
           smscode: $('#smscode').val(),
         };
