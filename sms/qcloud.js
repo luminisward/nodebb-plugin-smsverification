@@ -56,9 +56,9 @@ const Client = {
       if (!phoneNumber) {
         throw new Error('手机号为空！');
       }
-      winston.info(`[plugins.smsverification] Start exec sendSms({${phoneNumber}, ${params}}) `);
+      winston.info(`[plugins.smsverification] sendSms({${phoneNumber}, ${params}}) Start`);
       const result = await sendSms({ phoneNumber, params });
-      winston.info(`[plugins.smsverification] Success: sendSms({${phoneNumber}, ${params}}) `);
+      winston.info(`[plugins.smsverification] sendSms({${phoneNumber}, ${params}}) End`);
       return result;
     }
     winston.warn('[plugins/smsverification] 设置不完整，测试函数sendSms');

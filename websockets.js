@@ -35,7 +35,7 @@ const methods = {
       return { expire, newSms: true };
     }
 
-    winston.error(`[plugins.smsverification] Failed: sendSms() {result, errmsg} ${resData.result} ${resData.errmsg}`);
+    winston.error(`[plugins.smsverification] sendSms() Result Error {result, errmsg}: ${resData.result} ${resData.errmsg}`);
     throw new Error(resData.errmsg);
   },
   async editMobile(socket, data) {
@@ -72,7 +72,7 @@ const methods = {
       return;
     }
 
-    winston.error(`[plugins.smsverification] Failed: sendSms() {result, errmsg} ${resData.result} ${resData.errmsg}`);
+    winston.error(`[plugins.smsverification] sendSms() Result Error {result, errmsg}: ${resData.result} ${resData.errmsg}`);
     throw new Error(resData.errmsg);
   },
 };
