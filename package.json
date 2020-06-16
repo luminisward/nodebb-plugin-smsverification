@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-smsverification",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": {
     "name": "luminisward",
     "email": "luminisward@vip.qq.com"
@@ -33,6 +33,7 @@
     "url": "https://github.com/luminisward/nodebb-plugin-smsverification"
   },
   "dependencies": {
+    "libphonenumber-js": "^1.7.53",
     "qcloudsms_js": "^0.1.1"
   },
   "devDependencies": {

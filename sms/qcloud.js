@@ -1,5 +1,6 @@
 const winston = require.main.require('winston');
 const QcloudSms = require('qcloudsms_js');
+const { parsePhoneNumberFromString } = require('libphonenumber-js');
 
 const meta = require.main.require('./src/meta');
 
@@ -10,14 +11,18 @@ let appid;
 let appkey;
 let templateId;
 let smsSign;
+let templateIdIntl;
+let smsSignIntl;
 
-const sendSms = ({ phoneNumber, params }) => new Promise((resolve, reject) => {
+const sendSms = ({ nationCode = '86', phoneNumber, params }) => new Promise((resolve, reject) => {
+  const intlSms = nationCode !== '86';
+
   ssender.sendWithParam(
-    '86',
+    nationCode,
     [phoneNumber],
-    templateId,
+    intlSms ? templateIdIntl : templateId,
     params,
-    smsSign,
+    intlSms ? smsSignIntl : smsSign,
     '',
     '',
     (err, res, resData) => {
@@ -33,7 +38,7 @@ const sendSms = ({ phoneNumber, params }) => new Promise((resolve, reject) => {
 const Client = {
   init: async () => {
     ({
-      appid, appkey, templateId, smsSign,
+      appid, appkey, templateId, smsSign, templateIdIntl, smsSignIntl,
     } = await meta.settings.get('smsverification'));
 
     if (appid && appkey && templateId && smsSign) {
@@ -57,7 +62,18 @@ const Client = {
         throw new Error('手机号为空！');
       }
       winston.info(`[plugins.smsverification] sendSms({${phoneNumber}, ${params}}) Start`);
-      const result = await sendSms({ phoneNumber, params });
+
+      let result;
+      const phoneNumberIntl = parsePhoneNumberFromString(phoneNumber);
+      if (phoneNumberIntl) {
+        result = await sendSms({
+          nationCode: phoneNumberIntl.countryCallingCode,
+          phoneNumber: phoneNumberIntl.nationalNumber,
+          params,
+        });
+      } else {
+        result = await sendSms({ phoneNumber, params });
+      }
       winston.info(`[plugins.smsverification] sendSms({${phoneNumber}, ${params}}) End`);
       return result;
     }
