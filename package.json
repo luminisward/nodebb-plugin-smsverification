@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-smsverification",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": {
     "name": "luminisward",
     "email": "luminisward@vip.qq.com"
@@ -25,7 +25,7 @@
   },
   "main": "library.js",
   "nbbpm": {
-    "compatibility": "^1.13.0"
+    "compatibility": "^1.15.1"
   },
   "homepage": "https://github.com/luminisward/nodebb-plugin-smsverification#readme",
   "repository": {
