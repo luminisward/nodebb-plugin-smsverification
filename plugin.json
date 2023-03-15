@@ -35,8 +35,15 @@
   "staticDirs": {
     "static": "./static"
   },
-  "less": ["static/style.less"],
-  "scripts": ["static/lib/main.js"],
-  "acpScripts": ["static/lib/admin.js"],
+  "less": [
+    "static/style.less"
+  ],
+  "modules": {
+    "../admin/plugins/smsverification": "static/lib/smsverification.js",
+    "../admin/plugins/smsverificationtest": "static/lib/smsverificationtest.js"
+  },
+  "scripts": [
+    "static/lib/main.js"
+  ],
   "templates": "static/templates"
 }
